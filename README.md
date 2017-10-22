@@ -13,6 +13,7 @@ I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` an
 (iii). Methods doesn't need to have explicit `return` for returning the method call.
 (iv). Constructors are defined by declaring `initialize` method inside the class.
 (v). Variable doesn't need to have `type` declaration. Example: In java `int value = 10;` assigns int type to value. In ruby we can simply say `value = 10`.
+(vi). ruby doesn't have multiple inheritance instead we can use `modules`
 
 ### 2. Class
 
@@ -127,4 +128,12 @@ if we want to assign a value to instance variable inside different method then w
 multiple instance variable declaration,
 ```ruby
 attr_accessor :trooper_number, :name, :age
+```
+#### Step 5 ( Inheritance : < ParentClassName )
+
+```ruby
+class StarWars < ScifiMovies
+  # can do method overwrite even changing the number of arguments
+  # super(arguments) will call all the parent methods
+end
 ```
