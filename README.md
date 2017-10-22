@@ -18,9 +18,9 @@ I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` an
 
 The syntax for creating class always starts with lower case `class` before the class name in uppercase `StarWars`. End of the class has to be defined explicitly by `end`. Please note, ruby suggest using `underscore` separation in name declaration instead of camelCase expect in class name definition.
 
-# Step 1:
+#### Step 1:
 ```ruby
-# defining class starWars with camelCase
+# defining class StarWars with uppercase
 class StarWars
   # defining method with underscore separation
   def clone_troopers
