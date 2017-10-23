@@ -199,6 +199,75 @@ We can use pure functions on array similar to javascript. Below are the few exam
 - array.select
 - array.each_cons
 
+### 4. Methods
+
+#### a. Method Overloading / Default Arguments
+
+Ruby doesn't have method overloading, so we cannot use the same method name in a class with different arguments instead we can call the same method with all or any of the arguments defined in the method.
+
+Doesn't work, the first method never called.
+```ruby
+#method1
+def halloween(color,price)
+  if price <= 0
+    then "Invalid Price !"
+  else
+    if color != nil
+      then " The costume you have picked has #{color} color and of cost $#{price}"
+    end
+  end
+end
+
+#method2
+def halloween(color)
+  if color != nil
+    then " you picked color #{color}"
+  end
+end
+
+halloween("red",12)
+halloween("yellow")
+```
+Now we have used the same method name but arguments have default value if it's not passed, so we can don't have to relay on method overloading.
+
+```ruby
+#method1
+def halloween(color="white",price=1)
+  if price <= 0
+    then "Invalid Price !"
+  else
+    if color != nil
+      then " The costume you have picked has #{color} color and of cost $#{price}"
+    end
+  end
+end
+
+#halloween("red",12) #uncomment and comment other two for testing
+#halloween("yellow") #uncomment and comment other two for testing
+halloween()
+```
+
+#### b. Array parameter
+
+If we don't know number of arguments we need to pass then we can define a method to handle the arguments as an array.
+
+```ruby
+#method1
+def halloween(*color)
+  if color.size > 1
+    color.each_with_index do |element, index|
+      puts "#{index} has color #{element}"
+    end
+    elsif color.size == 1
+      "you have picked one color : #{color}"
+    else
+      "Oh no, don't you like colors?"
+  end
+end
+
+halloween("yellow","green","blue")
+#halloween()
+```
 
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
