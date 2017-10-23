@@ -158,14 +158,14 @@ end
 
 puts result
 ```
-Ternary Operator:
+#### Ternary Operator:
 ```ruby
 check_value = 11
 result = check_value > 10 ? true : false
 puts result
 ```
 
-Blocks:
+#### Blocks:
 The blocks are iterable code executed between `do` and `end`. Block's are used in `each` method which is an alternative for typical for loop. Typical for loop is
 
 ```ruby
