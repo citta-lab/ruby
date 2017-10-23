@@ -8,12 +8,17 @@ Playground: [repl it](https://repl.it/languages/ruby)
 
 I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` and lately started to learn `react`. The syntax to `ruby` seems to be much more simpler than all of the above and yet embraced widely.
 
-(i). Variables are private and cannot be accessed directly outside of the class.
-(ii). Methods inside the class are public.
-(iii). Methods doesn't need to have explicit `return` for returning the method call.
-(iv). Constructors are defined by declaring `initialize` method inside the class.
-(v). Variable doesn't need to have `type` declaration. Example: In java `int value = 10;` assigns int type to value. In ruby we can simply say `value = 10`.
-(vi). ruby doesn't have multiple inheritance instead we can use `modules`
+-(i). Variables are private and cannot be accessed directly outside of the class.    
+-(ii). Methods inside the class are public.
+-(iii). Methods doesn't need to have explicit `return` for returning the method call.
+-(iv). Constructors are defined by declaring `initialize` method inside the class.
+-(v). Variable doesn't need to have `type` declaration. Example: In java `int value = 10;` assigns int type to value. In ruby we can simply say `value = 10`.
+-(vi). ruby doesn't have multiple inheritance instead we can use `modules`.
+-(vii). `check ||= 10` this is used to assign value of 10 to check variable if it doesn't exist before. If check is not present ruby creates a variable with value `nil` (i.e null) and assign 10. This doesn't work for boolean, so stay away from that.
+-(viii). Range literal can be used to print numbers. `(1..5)` is equivalent to (1,2,3,4,5).
+-(ix). Everything in ruby are `objects`. I mean event numbers, variable, method etc.
+-(x). Numbers are immutable, Strings are mutable and hence increment and decrement doesn't work in ruby.
+-(xi). ruby doesn't have boolean values but `true` and `false` are instances of TrueClass and FalseClass. 
 
 ### 2. Class
 
@@ -137,3 +142,54 @@ class StarWars < ScifiMovies
   # super(arguments) will call all the parent methods
 end
 ```
+
+### 3. If, Else, While and Try ( Flow Control ):
+
+In ruby expressions can be assigned to a variable, So typical if and else can be written as
+```ruby
+check_value = 9
+result = if check_value > 10
+  then "Need Attention !"
+elsif check_value == 10
+  then " We Matched !"
+else
+  " We Good"
+end
+
+puts result
+```
+Ternary Operator:
+```ruby
+check_value = 11
+result = check_value > 10 ? true : false
+puts result
+```
+
+Blocks:
+The blocks are iterable code executed between `do` and `end`. Block's are used in `each` method which is an alternative for typical for loop. Typical for loop is
+
+```ruby
+#typical for loop
+for i in (1..5)
+  puts i
+end
+
+#each with block method
+(1..5).each do
+  puts "Looping"
+end
+
+#each with block to access elements
+(1..5).each do |number|
+  puts "Looping #{number}"
+end
+
+#to access index with each
+(1..5).each_with_index do |number, index|
+  puts "Looping #{number} and has index #{index}"
+end
+```
+
+### Reference:
+1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
+2. Ruby Fundamentals by Alex Korban
