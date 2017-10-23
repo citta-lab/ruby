@@ -8,17 +8,17 @@ Playground: [repl it](https://repl.it/languages/ruby)
 
 I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` and lately started to learn `react`. The syntax to `ruby` seems to be much more simpler than all of the above and yet embraced widely.
 
-- (i). Variables are private and cannot be accessed directly outside of the class.    
-- (ii). Methods inside the class are public.
-- (iii). Methods doesn't need to have explicit `return` for returning the method call.
-- (iv). Constructors are defined by declaring `initialize` method inside the class.
-- (v). Variable doesn't need to have `type` declaration. Example: In java `int value = 10;` assigns int type to value. In ruby we can simply say `value = 10`.
-- (vi). ruby doesn't have multiple inheritance instead we can use `modules`.
-- (vii). `check ||= 10` this is used to assign value of 10 to check variable if it doesn't exist before. If check is not present ruby creates a variable with value `nil` (i.e null) and assign 10. This doesn't work for boolean, so stay away from that.
-- (viii). Range literal can be used to print numbers. `(1..5)` is equivalent to (1,2,3,4,5).
-- (ix). Everything in ruby are `objects`. I mean event numbers, variable, method etc.
-- (x). Numbers are immutable, Strings are mutable and hence increment and decrement doesn't work in ruby.
-- (xi). ruby doesn't have boolean values but `true` and `false` are instances of TrueClass and FalseClass. 
+- Variables are private and cannot be accessed directly outside of the class.    
+- Methods inside the class are public.
+- Methods doesn't need to have explicit `return` for returning the method call.
+- Constructors are defined by declaring `initialize` method inside the class.
+- Variable doesn't need to have `type` declaration. Example: In java `int value = 10;` assigns int type to value. In ruby we can simply say `value = 10`.
+- ruby doesn't have multiple inheritance instead we can use `modules`.
+- `check ||= 10` this is used to assign value of 10 to check variable if it doesn't exist before. If check is not present ruby creates a variable with value `nil` (i.e null) and assign 10. This doesn't work for boolean, so stay away from that.
+- Range literal can be used to print numbers. `(1..5)` is equivalent to (1,2,3,4,5).
+- Everything in ruby are `objects`. I mean event numbers, variable, method etc.
+- Numbers are immutable, Strings are mutable and hence increment and decrement doesn't work in ruby.
+- ruby doesn't have boolean values but `true` and `false` are instances of TrueClass and FalseClass.
 
 ### 2. Class
 
@@ -189,6 +189,16 @@ end
   puts "Looping #{number} and has index #{index}"
 end
 ```
+
+#### Pure Functions
+
+We can use pure functions on array similar to javascript. Below are the few examples,
+- array.reduce
+- array.map
+- array.sort
+- array.select
+- array.each_cons
+
 
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
