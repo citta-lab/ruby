@@ -305,7 +305,7 @@ def questionpage
 end
 ```
 
-2. Authenticity Token:
+###2. Authenticity Token:
 No forms in the Rails app are allowed to submit the form without internal authenticity token, So we need to add the token where form submit action take place.
 ```ruby
 <%= form_for :question, url: '/questions', html:{class:'form-horizontal'} do %>
@@ -319,7 +319,7 @@ In this case, upon submitting the parent form we are trying to route the user to
 <form class="form-horizontal" action="/questions" method="POST">
 ```
 
-3. Model
+###3. Model
 
 View <-- Controller ( gets data from model ) <-- Model ( talks to tables ) <-- Data Table 
 
