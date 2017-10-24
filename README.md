@@ -269,6 +269,115 @@ halloween("yellow","green","blue")
 #halloween()
 ```
 
+
+Ruby on Rails [ juggling pebbles ]
+--------------------------
+
+```ruby
+> rails -v #checking rails version
+> rails new HU #creating new rails project
+> rails server #starting rails server
+> rails generate controller home index # creating controller 
+```
+
+### Tricks and Tips:
+
+- files starts with underscore `_` are partial html files which will not render by it's own but always attached to one of pain html page. Example: `_new_form_page.html.erb` indicates this is partial html page and will be embedded to normal html page `main.html.erb`.
+- When we want to render this page in main.html.erb page we need to add `render` method without starting underscore or file extention. So `_new_form_page.html.erb` can be rendered by `<% render 'home/new_form_page' %>`. 
+
+1. Form Routing :
+Mainly there are three steps we need to perform to make routing works in rails app, probably we always want to start from the form action level to think where the form needs to be summited upon submit or click. url will change to `http://localhost:3000/questions`.
+
+```html
+<!-- trying to route to questions page -->
+<form class="form-horizontal" action="/questions" method="POST">
+```
+
+Now we need to let the router know what it has to do when it sees `/questions`. Path for routes file is `config/routes.rb`.
+```ruby
+post '/questions' => 'home#questionpage'
+```
+
+Define method in controller `app/controller/home_controller.rb`
+```ruby
+def questionpage
+  redirect_to root_path #this will redirect to main root page.
+end
+```
+
+2. Authenticity Token:
+No forms in the Rails app are allowed to submit the form without internal authenticity token, So we need to add the token where form submit action take place.
+```ruby
+<%= form_for :question, url: '/questions', html:{class:'form-horizontal'} do %>
+ #...... 
+  # form code
+ #.....
+<% end %>
+```
+In this case, upon submitting the parent form we are trying to route the user to url questions.html.erb. You can verify that in the form action as mentioned below.
+```html
+<form class="form-horizontal" action="/questions" method="POST">
+```
+
+3. Model
+
+View <-- Controller ( gets data from model ) <-- Model ( talks to tables ) <-- Data Table 
+
+step 1:
+```ruby
+rails g resource <modal_name> <list of data-tpe in name:type> #format
+rails g resource question email:string body:text
+```
+
+After executing the above command we can see question appropriate files are generated in few folders, 
+```ruby
+create db/migrate/20171024040928_create_questions.rb #script to create database
+create app/models/question.rb
+create app/controllers/questions_controller.rb
+create app/helpers/questions_helper.rb
+route    resources :questions   #helps to route the page
+```
+
+step 2:
+creating the table which refers above script
+```ruby
+rake db:migrate #created table.
+```
+
+step 3:
+opening the console for data view and addition
+```ruby
+rails console #opens rails console helps to access tables via model.
+```
+
+step 4:
+preping the data
+```ruby
+Question.count # querying the table
+Question.create email: 'mahesh1@gmail.com', body: 'How old is the universe ?' #adding record
+Question.count # querying the table again
+```
+
+step 5:
+accesing the model in controller ( example: HomeController )
+```ruby
+def method_name
+    @questions = Question.all
+    #@questions = Question.order(created_at: :desc).all  #if we want to order the data
+end
+```
+
+step 6:
+display the data in the view
+```ruby
+<% @questions.each do |q| %>
+  <div class="media">
+      <h4 class="media-heading"><%= q.email %> asked :</h4><p><%= q.body %></p>
+  </div>
+<% end %>
+```
+
+
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
 2. Ruby Fundamentals by Alex Korban
