@@ -277,8 +277,45 @@ Ruby on Rails [ juggling pebbles ]
 > rails -v #checking rails version
 > rails new HU #creating new rails project
 > rails server #starting rails server
-> rails generate controller home index # creating controller 
+> rails generate controller home index # creating controller (i.e home) and action (i.e index)
 ```
+
+### 0. What Happend ?
+When we executed rails command to create controller rails did the magic to create few things and it is very important to understand the syntax. So here is the list.
+
+Executed Command:
+```ruby
+rails generate controller home index 
+```
+Syntax is `rails generate controller <controllername> <action>`
+
+
+Generated Controller:
+```ruby
+home_controller.rb
+```
+rails has created `<controllername>_controller` ruby file under app/controllers/ and the home_controller also has ACTION defined from `<action>`.
+```ruby
+class HomeController < ApplicationController
+  
+  def index
+  end
+
+end
+```
+
+Generated Views:
+```ruby
+index.html.erb
+```
+rails has created `<action>.html.erb` file inside app/views/<controllername> i.e `app/views/home/`.
+Notice rails has created directory with controller name in the view and action as .html.erb file. 
+
+Generated Routes:
+```ruby
+get 'home/index'
+```
+rails has added routes as `<controllername>/<action>` as routes in app/config/routes.rb. We can also write routes as `get '/about' => 'home#about'` i.e `get '/<action>' => '<conttoller>#<action>'`. That is upon routing page about rails will talk to action method `about` inside `home` controller.
 
 ### Tricks and Tips:
 
@@ -301,7 +338,7 @@ post '/questions' => 'home#questionpage'
 Define method in controller `app/controller/home_controller.rb`
 ```ruby
 def questionpage
-  redirect_to root_path #this will redirect to main root page.
+  redirect_to root_path #this will redirect to main root page and _path will be used by helper method
 end
 ```
 
@@ -377,6 +414,115 @@ display the data in the view
 <% end %>
 ```
 
+### 4. Routes
+
+[READ THIS](http://guides.rubyonrails.org/routing.html)
+
+Routes in ruby is pretty confusing if we atleast don't know the flow. It was a rough jounery juggling between `erb`, `haml` and then understand how the route actually work. So below are the few tricks we can use while working with routes.
+
+View:
+```ruby
+form_tag(admin_foodvendor_upload_path, method: :post, enctype: 'multipart/form-data', id: 'foodvendor_upload_form') do
+```
+the first parameter for form_tag is nothing but actions=" " in normal html forms. If you have already installed rails project then navigate inside the project `cd app_name`. where app_name can be your project name. Now let the rails figure out the path for us.
+
+```ruby
+> rails console #brings rails console
+> app.admin_foodvendor_upload_path  #copy the path from form_tag
+=> "/admin/foodvendor_upload"  #ah ah so we almost figured out the path but the last part `_path`. where did that come from.
+```
+
+or 
+```ruby
+rake routes # will give routes and controller#actions details
+```
+
+looking at the [2.3 Path and URL Helpers](http://guides.rubyonrails.org/routing.html) we can conclude `_path` are handled by rails helper.
+```html
+Creating a resourceful route will also expose a number of helpers to the controllers in your application. In the case of resources :photos:
+
+photos_path returns /photos
+new_photo_path returns /photos/new
+edit_photo_path(:id) returns /photos/:id/edit (for instance, edit_photo_path(10) returns /photos/10/edit)
+photo_path(:id) returns /photos/:id (for instance, photo_path(10) returns /photos/10)
+
+Each of these helpers has a corresponding _url helper (such as photos_url) which returns the same path prefixed with the current host, port and path prefix.
+```
+
+Routes (config/routes.rb): 
+```ruby
+resources :foodvendors, constraints: { id: /[^\/]+/ }
+    post 'foodvendor_upload' => 'foodvendors#upload'  #tada path is pointing to controller foodvendors and method upload ( Controller#Action syntax ).
+```
+the resource routes in rails maps the request to actions in single controller defined matching with the resource.
+
+Controller:
+```ruby
+class Admin::FoodvendorsController < Admin::BaseController
+  def upload
+    .. some caltulations ..
+    redirect_to admin_foodvendors_path
+  end
+```
+
+### 5. Forms
+
+If we want to capture data of the form in single object then we need to capture the name property of the form in an array format.
+```html
+<textarea class="form-control" name="body"></textarea>
+<input type="text" name="subject" required></input>
+```
+can we re-written as 
+```ruby
+<textarea class="form-control" name="application[body]"></textarea>
+<input type="text" name="application[subject]" required></input>
+```
+Now the resulting data capture will be with in one parent object application as `"application" => {"body" => "user entered value", "subject" => "user entered subject"}`
+
+Capture Param:     
+Lets create a from inside new.html.erb which will inturn call `create` action in the controller ( this is the magic done by rails ). 
+```ruby
+<%= form_for :post, url: school_path do |f| %> 
+  <p>
+    <%= f.label :title %> <br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>
+```
+Now we can add method `ceate` inside `school` controller. ( url: school_path tells us where we are rounting to). But make sure the router.rb has path setup as well.
+
+```ruby
+//SchoolController aka school
+def create
+  render plain: params[:post].inspect
+  #{"title"=>" value entered", "body" => " value added"} will be displayed 
+end
+```
+
+Link:
+```ruby
+<%= link_to "Home", home_path %>
+```
+We are editing in application.html.erb. In above example "Home" is name of the link will be displayed and `home_path` will be the route it will go to. We can route root path to home as alias as shown below,
+```ruby
+root 'schools#index', as : 'home'
+#root 'controller_name#action', alias as : 'home'
+```
+Similarly,
+```ruby
+<%= link_to "Create", new_school_path %>
+```
+will result in routing to `/schools/new`.
 
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
