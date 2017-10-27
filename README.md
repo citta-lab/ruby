@@ -269,6 +269,59 @@ halloween("yellow","green","blue")
 #halloween()
 ```
 
+#### c.Array
+
+By default we can't mutate the array but using "BANG" we can mutate the behaviour. Some of the userful array functions are 
+```ruby
+a = [ 42, 8, 9, 7]
+a.empty ? #false
+a.include?(8) #true
+a.sort #[7,8,9,42]
+a.reverse #[7,9,8,42]
+a.shuffle #[8,42,7,9]
+a #[42,8,9,7] So the values of array 'a' didn't change
+```
+
+Mutating the state ( Bang, Bang !!)
+```ruby
+a.sort! #[7,8,9,42]
+a #[7,8,9,42] The values of array 'a' has been changed and will remian the same.
+```
+
+Userful array functions
+```ruby
+a.push(6) #[7,8,9,42,6]
+a << 10 #[7,8,9,42,6,10]
+a << "test" #[7,8,9,42,6,10,"test"]
+a.join #[78942610test]
+a = %w[foo bar baz quux]         # Use %w to make a string array.
+```
+
+#### d. Hashes and Symbols 
+In ruby hashes are like `HashMap<K,S>` in java. It will act as an key and value pair but it doesn't guarantee the order. If we prefer order of the data then we might have to pick `Array` over hashes. An empty hash can be represented by `{}`. So user empty hash looks like `user = {}`.
+
+Evolution #1:
+```ruby
+user = { "first_name" => "Bob", "last_name" => "Henderson", "age" => "23"} #defiend hash
+user["age"] #retriving hash. This will give "23"
+```
+'=>' is called hasrocket. In ruby most commonly people use symbols to represent the key and in rails tutorial symbols has been defined as "Symbols are a special Ruby data type shared with very few other languages, so they may seem weird at first, but Rails uses them a lot, so you’ll get used to them fast. Unlike strings, not all characters are valid:". So symbols are represented as `:first_name`. etc 
+
+Evolution #2:
+```ruby
+user = { :first_name => "Bob", :last_name => "Henderson", :age => "23"}
+user[:age] #retriving hash. This will give "23"
+```
+As of latest ruby symbols with in Hashes can also be represented as mentioned below, more readable perhaps.
+Evolution #3:
+```ruby
+user = { first_name: "Bob", last_name: "Henderson", age: "23"}
+user[:age] #retriving hash. This will give "23"
+```
+
+
+[Ruby Code Guide](https://github.com/bbatsov/ruby-style-guide#syntax)
+
 
 Ruby on Rails [ juggling pebbles ]
 --------------------------
@@ -321,7 +374,34 @@ rails has added routes as `<controllername>/<action>` as routes in app/config/ro
 
 - files starts with underscore `_` are partial html files which will not render by it's own but always attached to one of pain html page. Example: `_new_form_page.html.erb` indicates this is partial html page and will be embedded to normal html page `main.html.erb`.
 - When we want to render this page in main.html.erb page we need to add `render` method without starting underscore or file extention. So `_new_form_page.html.erb` can be rendered by `<% render 'home/new_form_page' %>`. 
+- `<% ..... %>` indicates Rails should call the provide function. This doesn't display the code snippet to the DOM but used in looping or holidng vairable or checking value etc. 
+- `<%= .... %>` we use this to insert the value or template to the DOM.
 
+### Undo-Ing Tips:
+```ruby
+$ rails destroy  controller <controlername> <action1> <action2>   #removes the controller and actions related to it.
+$ rails destroy model <modalname>  #note we don't need to pass the arguments which are used as columns in table creation. just the parent.
+$ rails db:rollback #rolls back the db:migrate changes ( i.e undo the create table execution )
+$ rails db:migrate VERSION=0 #roll back to particular version of db
+```
+
+### Useful Snippet:
+
+1. Provide and Yield:
+We can use `provide` and `yield` functiont to insert the value to DOM. In below example we are assigning a value to title and retriving the value back in the DOM using yield.
+```ruby
+<% provide(:title, "Home") %>
+<html>
+  <title><%= yield(:title) %>
+</html>
+```
+The distinction between the two types of embedded Ruby is that `<% ... %>` executes the code inside, while `<%= ... %>` executes it and inserts the result into the template.
+
+
+
+
+
+### Rails Concepts:
 1. Form Routing :
 Mainly there are three steps we need to perform to make routing works in rails app, probably we always want to start from the form action level to think where the form needs to be summited upon submit or click. url will change to `http://localhost:3000/questions`.
 
@@ -509,11 +589,12 @@ def create
 end
 ```
 
+
 Link:
 ```ruby
 <%= link_to "Home", home_path %>
 ```
-We are editing in application.html.erb. In above example "Home" is name of the link will be displayed and `home_path` will be the route it will go to. We can route root path to home as alias as shown below,
+We are editing in application.html.erb. In above example "Home" is name of the link will be displayed and `home_path` will be the route it will go to. We can route root path to home as alias as shown below, so upon clicking the link it will go to main index page.
 ```ruby
 root 'schools#index', as : 'home'
 #root 'controller_name#action', alias as : 'home'
