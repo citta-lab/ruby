@@ -269,7 +269,7 @@ halloween("yellow","green","blue")
 #halloween()
 ```
 
-#### c.Array
+#### c. Array
 
 By default we can't mutate the array but using "BANG" we can mutate the behaviour. Some of the userful array functions are 
 ```ruby
@@ -312,7 +312,8 @@ Evolution #2:
 user = { :first_name => "Bob", :last_name => "Henderson", :age => "23"}
 user[:age] #retriving hash. This will give "23"
 ```
-As of latest ruby symbols with in Hashes can also be represented as mentioned below, more readable perhaps.
+As of latest ruby symbols with in Hashes can also be represented as mentioned below, more readable perhaps.    
+
 Evolution #3:
 ```ruby
 user = { first_name: "Bob", last_name: "Henderson", age: "23"}
