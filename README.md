@@ -319,7 +319,16 @@ Evolution #3:
 user = { first_name: "Bob", last_name: "Henderson", age: "23"}
 user[:age] #retriving hash. This will give "23"
 ```
+The bottom line is that `:first_name =>` and `first_name:` are effectively the same only inside literal hashes.
 
+Evolution #4:
+Nestetd Hashes can be created by adding a Hash inside the Hash by using the Symbol. So that would be,
+```ruby
+params = {}
+params[:user] = { first_name: "Bob", last_name: "Henderson", age: "23"}
+puts params #result in {:user=>{:first_name=>"Bob", :last_name=>"Henderson", :age=>"23"}}
+puts params[:user][:age] #23
+```
 
 [Ruby Code Guide](https://github.com/bbatsov/ruby-style-guide#syntax)
 
