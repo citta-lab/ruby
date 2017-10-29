@@ -19,6 +19,9 @@ I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` an
 - Everything in ruby are `objects`. I mean event numbers, variable, method etc.
 - Numbers are immutable, Strings are mutable and hence increment and decrement doesn't work in ruby.
 - ruby doesn't have boolean values but `true` and `false` are instances of TrueClass and FalseClass.
+- The process of initializing the arguments using `initialize` constructor is called `mass assignment`.
+- `helper` : helper is a specific to controller helper methods and we should make use of the `helper` class to use anywhere in the application. example: `app/helpers/controllername_helper.rb`
+- 
 
 ### 2. Class
 
@@ -386,6 +389,7 @@ rails has added routes as `<controllername>/<action>` as routes in app/config/ro
 - When we want to render this page in main.html.erb page we need to add `render` method without starting underscore or file extention. So `_new_form_page.html.erb` can be rendered by `<% render 'home/new_form_page' %>`. 
 - `<% ..... %>` indicates Rails should call the provide function. This doesn't display the code snippet to the DOM but used in looping or holidng vairable or checking value etc. 
 - `<%= .... %>` we use this to insert the value or template to the DOM.
+- Rails uses a file called schema.rb in the db/ directory to keep track of the structure of the database (called the schema, hence the filename). 
 
 ### Undo-Ing Tips:
 ```ruby
@@ -450,6 +454,8 @@ In this case, upon submitting the parent form we are trying to route the user to
 
 View <-- Controller ( gets data from model ) <-- Model ( talks to tables ) <-- Data Table 
 
+The default data structure to save the data in Rails is called `Model` and the librabry to interact with the model is called `Active Record`. So active records provide methods for creating, saving, querying and deleting the data in database without need of SQL statements ( no Rails application can be independent of the database implementation ). 
+
 step 1:
 ```ruby
 rails g resource <modal_name> <list of data-tpe in name:type> #format
@@ -464,6 +470,9 @@ create app/controllers/questions_controller.rb
 create app/helpers/questions_helper.rb
 route    resources :questions   #helps to route the page
 ```
+So what does the `migrate` directory script do ? Migrate script prefixed with timestamp to show when the migration command was generated, which consist of `change` method to `create_table` in the database with specified columns in the resource command. If we take close look at the migrate script we will also find rails added column for `timestamp` which will inturn create `created_time`and `update_time`columns as `created_at` and `updated_at` respectively.
+
+> Rails uses the linguistic convention to create table as the table names will be in plural though the generate resource was issued with singualr model name. For example: The model can have many entities inside the table so plural.
 
 step 2:
 creating the table which refers above script
@@ -502,6 +511,16 @@ display the data in the view
       <h4 class="media-heading"><%= q.email %> asked :</h4><p><%= q.body %></p>
   </div>
 <% end %>
+```
+
+step 7:
+We can use few useful active record methods to retrive data from the database.
+```ruby
+Question.find
+Question.find_by(columnname: "value") #hash with symbols 
+Question.first
+Question.all
+rails generate migration add_index_to_tablenamewithplural_columnname #index creation in database and will create migrate script under db folder. Then we need to update the `change` method in this new file with `add_index :tablenamewithplural, :columnname, unique: true`. Once done `rails db:migrate` has to be re-run again.
 ```
 
 ### 4. Routes
@@ -603,6 +622,7 @@ end
 Link:
 ```ruby
 <%= link_to "Home", home_path %>
+<%= link_to "NameOfTheLink", URLPATH, OPTIONALHASH %> #Syntax
 ```
 We are editing in application.html.erb. In above example "Home" is name of the link will be displayed and `home_path` will be the route it will go to. We can route root path to home as alias as shown below, so upon clicking the link it will go to main index page.
 ```ruby
