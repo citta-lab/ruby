@@ -21,7 +21,7 @@ I have had an opportunity to work on `java`, `angular`, `shell`, `javascript` an
 - ruby doesn't have boolean values but `true` and `false` are instances of TrueClass and FalseClass.
 - The process of initializing the arguments using `initialize` constructor is called `mass assignment`.
 - `helper` : helper is a specific to controller helper methods and we should make use of the `helper` class to use anywhere in the application. example: `app/helpers/controllername_helper.rb`
-- 
+-
 
 ### 2. Class
 
@@ -274,7 +274,7 @@ halloween("yellow","green","blue")
 
 #### c. Array
 
-By default we can't mutate the array but using "BANG" we can mutate the behaviour. Some of the userful array functions are 
+By default we can't mutate the array but using "BANG" we can mutate the behaviour. Some of the userful array functions are
 ```ruby
 a = [ 42, 8, 9, 7]
 a.empty ? #false
@@ -300,7 +300,7 @@ a.join #[78942610test]
 a = %w[foo bar baz quux]         # Use %w to make a string array.
 ```
 
-#### d. Hashes and Symbols 
+#### d. Hashes and Symbols
 In ruby hashes are like `HashMap<K,S>` in java. It will act as an key and value pair but it doesn't guarantee the order. If we prefer order of the data then we might have to pick `Array` over hashes. An empty hash can be represented by `{}`. So user empty hash looks like `user = {}`.
 
 Evolution #1:
@@ -308,7 +308,7 @@ Evolution #1:
 user = { "first_name" => "Bob", "last_name" => "Henderson", "age" => "23"} #defiend hash
 user["age"] #retriving hash. This will give "23"
 ```
-'=>' is called hasrocket. In ruby most commonly people use symbols to represent the key and in rails tutorial symbols has been defined as "Symbols are a special Ruby data type shared with very few other languages, so they may seem weird at first, but Rails uses them a lot, so you’ll get used to them fast. Unlike strings, not all characters are valid:". So symbols are represented as `:first_name`. etc 
+'=>' is called hasrocket. In ruby most commonly people use symbols to represent the key and in rails tutorial symbols has been defined as "Symbols are a special Ruby data type shared with very few other languages, so they may seem weird at first, but Rails uses them a lot, so you’ll get used to them fast. Unlike strings, not all characters are valid:". So symbols are represented as `:first_name`. etc
 
 Evolution #2:
 ```ruby
@@ -351,7 +351,7 @@ When we executed rails command to create controller rails did the magic to creat
 
 Executed Command:
 ```ruby
-rails generate controller home index 
+rails generate controller home index
 ```
 Syntax is `rails generate controller <controllername> <action>`
 
@@ -363,7 +363,7 @@ home_controller.rb
 rails has created `<controllername>_controller` ruby file under app/controllers/ and the home_controller also has ACTION defined from `<action>`.
 ```ruby
 class HomeController < ApplicationController
-  
+
   def index
   end
 
@@ -375,7 +375,7 @@ Generated Views:
 index.html.erb
 ```
 rails has created `<action>.html.erb` file inside app/views/<controllername> i.e `app/views/home/`.
-Notice rails has created directory with controller name in the view and action as .html.erb file. 
+Notice rails has created directory with controller name in the view and action as .html.erb file.
 
 Generated Routes:
 ```ruby
@@ -386,10 +386,10 @@ rails has added routes as `<controllername>/<action>` as routes in app/config/ro
 ### Tricks and Tips:
 
 - files starts with underscore `_` are partial html files which will not render by it's own but always attached to one of pain html page. Example: `_new_form_page.html.erb` indicates this is partial html page and will be embedded to normal html page `main.html.erb`.
-- When we want to render this page in main.html.erb page we need to add `render` method without starting underscore or file extention. So `_new_form_page.html.erb` can be rendered by `<% render 'home/new_form_page' %>`. 
-- `<% ..... %>` indicates Rails should call the provide function. This doesn't display the code snippet to the DOM but used in looping or holidng vairable or checking value etc. 
+- When we want to render this page in main.html.erb page we need to add `render` method without starting underscore or file extention. So `_new_form_page.html.erb` can be rendered by `<% render 'home/new_form_page' %>`.
+- `<% ..... %>` indicates Rails should call the provide function. This doesn't display the code snippet to the DOM but used in looping or holidng vairable or checking value etc.
 - `<%= .... %>` we use this to insert the value or template to the DOM.
-- Rails uses a file called schema.rb in the db/ directory to keep track of the structure of the database (called the schema, hence the filename). 
+- Rails uses a file called schema.rb in the db/ directory to keep track of the structure of the database (called the schema, hence the filename).
 - By default, methods defined in any helper file are automatically available in any view.
 
 ### Undo-Ing Tips:
@@ -441,7 +441,7 @@ end
 No forms in the Rails app are allowed to submit the form without internal authenticity token, So we need to add the token where form submit action take place.
 ```ruby
 <%= form_for :question, url: '/questions', html:{class:'form-horizontal'} do %>
- #...... 
+ #......
   # form code
  #.....
 <% end %>
@@ -453,9 +453,9 @@ In this case, upon submitting the parent form we are trying to route the user to
 
 ### 3. Model
 
-View <-- Controller ( gets data from model ) <-- Model ( talks to tables ) <-- Data Table 
+View <-- Controller ( gets data from model ) <-- Model ( talks to tables ) <-- Data Table
 
-The default data structure to save the data in Rails is called `Model` and the librabry to interact with the model is called `Active Record`. So active records provide methods for creating, saving, querying and deleting the data in database without need of SQL statements ( no Rails application can be independent of the database implementation ). 
+The default data structure to save the data in Rails is called `Model` and the librabry to interact with the model is called `Active Record`. So active records provide methods for creating, saving, querying and deleting the data in database without need of SQL statements ( no Rails application can be independent of the database implementation ).
 
 step 1:
 ```ruby
@@ -463,7 +463,7 @@ rails g resource <modal_name> <list of data-tpe in name:type> #format
 rails g resource question email:string body:text
 ```
 
-After executing the above command we can see question appropriate files are generated in few folders, 
+After executing the above command we can see question appropriate files are generated in few folders,
 ```ruby
 create db/migrate/20171024040928_create_questions.rb #script to create database
 create app/models/question.rb
@@ -518,7 +518,7 @@ step 7:
 We can use few useful active record methods to retrive data from the database.
 ```ruby
 Question.find
-Question.find_by(columnname: "value") #hash with symbols 
+Question.find_by(columnname: "value") #hash with symbols
 Question.first
 Question.all
 rails generate migration add_index_to_tablenamewithplural_columnname #index creation in database and will create migrate script under db folder. Then we need to update the `change` method in this new file with `add_index :tablenamewithplural, :columnname, unique: true`. Once done `rails db:migrate` has to be re-run again.
@@ -542,7 +542,7 @@ the first parameter for form_tag is nothing but actions=" " in normal html forms
 => "/admin/foodvendor_upload"  #ah ah so we almost figured out the path but the last part `_path`. where did that come from.
 ```
 
-or 
+or
 ```ruby
 rake routes # will give routes and controller#actions details
 ```
@@ -559,7 +559,7 @@ photo_path(:id) returns /photos/:id (for instance, photo_path(10) returns /photo
 Each of these helpers has a corresponding _url helper (such as photos_url) which returns the same path prefixed with the current host, port and path prefix.
 ```
 
-Routes (config/routes.rb): 
+Routes (config/routes.rb):
 ```ruby
 resources :foodvendors, constraints: { id: /[^\/]+/ }
     post 'foodvendor_upload' => 'foodvendors#upload'  #tada path is pointing to controller foodvendors and method upload ( Controller#Action syntax ).
@@ -582,7 +582,7 @@ If we want to capture data of the form in single object then we need to capture 
 <textarea class="form-control" name="body"></textarea>
 <input type="text" name="subject" required></input>
 ```
-can we re-written as 
+can we re-written as
 ```ruby
 <textarea class="form-control" name="application[body]"></textarea>
 <input type="text" name="application[subject]" required></input>
@@ -590,9 +590,9 @@ can we re-written as
 Now the resulting data capture will be with in one parent object application as `"application" => {"body" => "user entered value", "subject" => "user entered subject"}`
 
 Capture Param:     
-Lets create a from inside new.html.erb which will inturn call `create` action in the controller ( this is the magic done by rails ). 
+Lets create a from inside new.html.erb which will inturn call `create` action in the controller ( this is the magic done by rails ).
 ```ruby
-<%= form_for :post, url: school_path do |f| %> 
+<%= form_for :post, url: school_path do |f| %>
   <p>
     <%= f.label :title %> <br>
     <%= f.text_field :title %>
@@ -615,7 +615,7 @@ Now we can add method `ceate` inside `school` controller. ( url: school_path tel
 //SchoolController aka school
 def create
   render plain: params[:post].inspect
-  #{"title"=>" value entered", "body" => " value added"} will be displayed 
+  #{"title"=>" value entered", "body" => " value added"} will be displayed
 end
 ```
 
@@ -639,6 +639,13 @@ will result in routing to `/schools/new`.
 #### 6. Debugger
 
 Add `debugger` inside the controller or Module or Helper methods where the problem needs to be investigated and upon loading the application `byebug` console will be enabled to interact with the the data set.
+
+### Examples:
+| # | Description | Example Link |
+| --- | --- | --- |
+| 1 | find duplicates between two arrays (list of hash) and build new arrays for update and/or create  | [Array Duplication between Arrays](https://github.com/citta-lab/ruby/blob/master/ruby_code/array_duplication_between_arrays.rb) |
+
+
 
 
 ### Reference:
