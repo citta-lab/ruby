@@ -644,6 +644,7 @@ Add `debugger` inside the controller or Module or Helper methods where the probl
 | # | Description | Example Link |
 | --- | --- | --- |
 | 1 | find duplicates between two arrays (list of hash) and build new arrays for update and/or create  | [Array Duplication between Arrays](https://github.com/citta-lab/ruby/blob/master/ruby_code/array_duplication_between_arrays.rb) |
+| 2 | --- | --- |
 
 
 
