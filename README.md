@@ -390,6 +390,7 @@ rails has added routes as `<controllername>/<action>` as routes in app/config/ro
 - `<% ..... %>` indicates Rails should call the provide function. This doesn't display the code snippet to the DOM but used in looping or holidng vairable or checking value etc. 
 - `<%= .... %>` we use this to insert the value or template to the DOM.
 - Rails uses a file called schema.rb in the db/ directory to keep track of the structure of the database (called the schema, hence the filename). 
+- By default, methods defined in any helper file are automatically available in any view.
 
 ### Undo-Ing Tips:
 ```ruby
@@ -634,6 +635,11 @@ Similarly,
 <%= link_to "Create", new_school_path %>
 ```
 will result in routing to `/schools/new`.
+
+#### 6. Debugger
+
+Add `debugger` inside the controller or Module or Helper methods where the problem needs to be investigated and upon loading the application `byebug` console will be enabled to interact with the the data set.
+
 
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
