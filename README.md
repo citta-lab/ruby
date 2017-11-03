@@ -79,7 +79,7 @@ class StarWars
   def clone_troopers
     @trooper_number = 10 # declaring instance Variable
     puts " Hello all #{@trooper_number} troopers !!" # puts for printing and accessing the trooper_number
-    army_force #calling methdod2
+    army_force #calling method2
   end #end of method
 
   def army_force
@@ -274,7 +274,7 @@ halloween("yellow","green","blue")
 
 #### c. Array
 
-By default we can't mutate the array but using "BANG" we can mutate the behaviour. Some of the userful array functions are
+By default we can't mutate the array but using "BANG" we can mutate the behavior. Some of the useful array functions are
 ```ruby
 a = [ 42, 8, 9, 7]
 a.empty ? #false
@@ -288,7 +288,7 @@ a #[42,8,9,7] So the values of array 'a' didn't change
 Mutating the state ( Bang, Bang !!)
 ```ruby
 a.sort! #[7,8,9,42]
-a #[7,8,9,42] The values of array 'a' has been changed and will remian the same.
+a #[7,8,9,42] The values of array 'a' has been changed and will remain the same.
 ```
 
 Userful array functions
@@ -306,32 +306,40 @@ In ruby hashes are like `HashMap<K,S>` in java. It will act as an key and value 
 Evolution #1:
 ```ruby
 user = { "first_name" => "Bob", "last_name" => "Henderson", "age" => "23"} #defiend hash
-user["age"] #retriving hash. This will give "23"
+user["age"] #retrieving hash. This will give "23"
 ```
 '=>' is called hasrocket. In ruby most commonly people use symbols to represent the key and in rails tutorial symbols has been defined as "Symbols are a special Ruby data type shared with very few other languages, so they may seem weird at first, but Rails uses them a lot, so you’ll get used to them fast. Unlike strings, not all characters are valid:". So symbols are represented as `:first_name`. etc
 
 Evolution #2:
 ```ruby
 user = { :first_name => "Bob", :last_name => "Henderson", :age => "23"}
-user[:age] #retriving hash. This will give "23"
+user[:age] #retrieving hash. This will give "23"
 ```
 As of latest ruby symbols with in Hashes can also be represented as mentioned below, more readable perhaps.    
 
 Evolution #3:
 ```ruby
 user = { first_name: "Bob", last_name: "Henderson", age: "23"}
-user[:age] #retriving hash. This will give "23"
+user[:age] # retrieving hash. This will give "23"
 ```
 The bottom line is that `:first_name =>` and `first_name:` are effectively the same only inside literal hashes.
 
 Evolution #4:
-Nestetd Hashes can be created by adding a Hash inside the Hash by using the Symbol. So that would be,
+Nested Hashes can be created by adding a Hash inside the Hash by using the Symbol. So that would be,
 ```ruby
 params = {}
 params[:user] = { first_name: "Bob", last_name: "Henderson", age: "23"}
 puts params #result in {:user=>{:first_name=>"Bob", :last_name=>"Henderson", :age=>"23"}}
 puts params[:user][:age] #23
 ```
+Evolution #5: ( Colon )
+As ruby version evolved, `:` usage has been modified as per the user need. So in short below are the few examples
+```ruby
+1. {:name => "foo"} same as {name: 'foo'}
+2. def foo(bar:) declaring parameter bar in a method
+3. foo(bar: 42) passing argument 42 for method call
+```
+
 
 [Ruby Code Guide](https://github.com/bbatsov/ruby-style-guide#syntax)
 
@@ -652,3 +660,4 @@ Add `debugger` inside the controller or Module or Helper methods where the probl
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
 2. Ruby Fundamentals by Alex Korban
+3. Need to add
