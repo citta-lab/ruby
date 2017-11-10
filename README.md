@@ -168,6 +168,13 @@ result = check_value > 10 ? true : false
 puts result
 ```
 
+present?
+```ruby
+!value.empty? && value.length > 0 && !value.nil?
+#can be replaced with
+value.present?
+```
+
 #### Blocks:
 The blocks are iterable code executed between `do` and `end`. Block's are used in `each` method which is an alternative for typical for loop. Typical for loop is
 
@@ -299,6 +306,35 @@ a << "test" #[7,8,9,42,6,10,"test"]
 a.join #[78942610test]
 a = %w[foo bar baz quux]         # Use %w to make a string array.
 ```
+
+Array of objects  
+When the array of objects are given and need to alter the resulting array then `map` or `collection` can be used. In below example we will be removing the `name` property of the instance from the resulting array.
+```ruby
+class Employee
+  attr_accessor :name, :company, :duration
+  def initialize(name, company, duration)
+    @name     = name
+    @company   = company
+    @duration = duration
+  end
+end
+
+aSong1 = Employee.new("Fleck", "AMZ", 260)
+aSong2 = Employee.new("Taylor", "EMC", 120)
+aSong3 = Employee.new("Bob", "Adobe", 260)
+aSong4 = Employee.new("Jack", "Google", 360)
+
+final_array = [ ]
+final_array.push(aSong1)
+final_array.push(aSong2)
+final_array.push(aSong3)
+final_array.push(aSong4)
+```
+Now we can use collection to remove name from the resulting array,
+```ruby
+final_array.collect {|x| { company: x.company, duration: x.duration }}
+```
+
 
 #### d. Hashes and Symbols
 In ruby hashes are like `HashMap<K,S>` in java. It will act as an key and value pair but it doesn't guarantee the order. If we prefer order of the data then we might have to pick `Array` over hashes. An empty hash can be represented by `{}`. So user empty hash looks like `user = {}`.
