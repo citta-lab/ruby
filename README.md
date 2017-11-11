@@ -209,6 +209,8 @@ We can use pure functions on array similar to javascript. Below are the few exam
 - array.select
 - array.each_cons
 
+I have a separate section about Arrays as they are very important. Please refer [Arrays in Ruby](https://github.com/citta-lab/ruby/blob/master/Array.md). 
+
 ### 4. Methods
 
 #### a. Method Overloading / Default Arguments
