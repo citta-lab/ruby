@@ -58,3 +58,48 @@ puts ("*****")
 puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer"}
 ```
 So the initial array didn't change but we were able to extract the value based on our requirment ( i.e age must be greater than 25 )
+
+3. Map
+
+Map is a abstraction of each, we can iterate through the item and can be mutate the property of the state. So in below example we can `upper case` the item of original array.
+
+```ruby
+data.map do |item|
+  if item[:name].upcase == "MATT"
+    puts "Hello #{item[:name]}"
+  end
+end
+puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer"}
+```
+The array still didn't change so we need to explicitly tell it's okay to override. So that can be done by `!`.
+```ruby
+data.map do |item|
+  if item[:name].upcase! == "MATT"
+    puts "Hello #{item[:name]}"
+  end
+end
+puts data #{:id=>100, :name=>"ROB", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"MATT", :age=>"28", :job=>"Engineer"}
+```
+If we have requirement to append some hash property if we find a match then we can accomplish using map to return a new array with appended value.
+```ruby
+new_data = data.map do |each_item|
+  if each_item[:age].to_i > 25
+    {
+      :name => each_item[:name],
+      :age => each_item[:age],
+      :job => each_item[:job],
+      :category => "Young"
+    }
+  end
+end
+puts new_data #{:name=>"Matt", :age=>"28", :job=>"Engineer", :category=>"Young"}
+```
+if we want to append hash value to existing array instead of new, then we can do something like this.
+```ruby
+data.map do |each_item|
+  if each_item[:age].to_i > 25
+    each_item[:category] = "Young"
+  end
+end
+puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer", :category=>"Young"}
+```
