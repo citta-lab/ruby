@@ -2,7 +2,7 @@
 
 [Ruby doc](https://ruby-doc.org/core-2.4.1/Array.html#method-i-each) has covered pretty much about everything, however i am making an effort to explain the methods we can leverage to work with an array.
 
-####1. Example Data:
+#### 1. Example Data:
 
 ```ruby
 data = [
@@ -25,7 +25,7 @@ The above example is list of hash in an array. so if we loop each element it wou
 data_hash = { "employeeDetails": data }
 ```
 
-####2. Each  
+#### 2. Each  
 
 Similar to typical `for` loop iteration can be done via `each` in ruby on array and/or hash. The below example shows how the each iterator traverse through the items of the array. If we need index of each item then we can also use `each_index`. Array #each executes block of code for each element and return the array itself. Note the returned original array value doesn't change ( doesn't mutate ).
 
@@ -59,7 +59,7 @@ puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=
 ```
 So the initial array didn't change but we were able to extract the value based on our requirement ( i.e age must be greater than 25 )
 
-####3. Map ( also called as #collect)
+#### 3. Map ( also called as #collect)
 
 Map is a abstraction of each, similar to array.each `map` iterates through the given block and returns the `new` array instead of the array itself. So it doesn't mutate the original array and returns the new one. So in below example we can `upper case` the item of original array.
 
@@ -104,7 +104,7 @@ end
 puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer", :category=>"Young"}
 ```
 
-####4. Select
+#### 4. Select
 
 If we are interested in pulling certain element if the condition satisfied then we can use `.select` instead. Select will iterative over all elements of array and returns the element which matches the criteria. Example: If we are interested in fetching array element which has age more than 25 then we can write as below,
 ```ruby
