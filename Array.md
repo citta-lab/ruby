@@ -173,3 +173,4 @@ end
 | # | Description | Example Link |
 | --- | --- | --- |
 | 1 | Array Quiz |  [CodeQuizzes](http://www.codequizzes.com/ruby/intermediate/array-methods-practice) |
+| 2 | More About Array (learn ruby the hardway) | [Doing things to Array](https://learnrubythehardway.org/book/ex38.html)|
