@@ -169,3 +169,7 @@ final_data = data.select do |each_item|
 end
 # will return all the data back, but if we use false instead of array of false it will return nil.
 ```
+### Examples:
+| # | Description | Example Link |
+| --- | --- | --- |
+| 1 | Array Quiz |  [CodeQuizzes](http://www.codequizzes.com/ruby/intermediate/array-methods-practice) |
