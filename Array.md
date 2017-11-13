@@ -167,5 +167,5 @@ So the returning value is array of boolean values instead of just boolean. If we
 final_data = data.select do |each_item|
  [false]
 end
-# will return all the data back, but if we use false instead of array of false.
+# will return all the data back, but if we use false instead of array of false it will return nil.
 ```
