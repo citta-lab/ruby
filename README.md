@@ -209,7 +209,6 @@ We can use pure functions on array similar to javascript. Below are the few exam
 - array.select
 - array.each_cons
 
-I have a separate section about Arrays as they are very important. Please refer [Arrays in Ruby](https://github.com/citta-lab/ruby/blob/master/Array.md). 
 
 ### 4. Methods
 
@@ -281,7 +280,7 @@ halloween("yellow","green","blue")
 #halloween()
 ```
 
-#### c. Array
+### 5. Array
 
 By default we can't mutate the array but using "BANG" we can mutate the behavior. Some of the useful array functions are
 ```ruby
@@ -336,7 +335,7 @@ Now we can use collection to remove name from the resulting array,
 ```ruby
 final_array.collect {|x| { company: x.company, duration: x.duration }}
 ```
-
+I have a separate section about Arrays as they are very important. Please refer [Arrays in Ruby](https://github.com/citta-lab/ruby/blob/master/Array.md). 
 
 #### d. Hashes and Symbols
 In ruby hashes are like `HashMap<K,S>` in java. It will act as an key and value pair but it doesn't guarantee the order. If we prefer order of the data then we might have to pick `Array` over hashes. An empty hash can be represented by `{}`. So user empty hash looks like `user = {}`.

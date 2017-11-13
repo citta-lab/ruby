@@ -2,7 +2,7 @@
 
 [Ruby doc](https://ruby-doc.org/core-2.4.1/Array.html#method-i-each) has covered pretty much about everything, however i am making an effort to explain the methods we can leverage to work with an array.
 
-1. Example Data:
+####1. Example Data:
 
 ```ruby
 data = [
@@ -25,9 +25,9 @@ The above example is list of hash in an array. so if we loop each element it wou
 data_hash = { "employeeDetails": data }
 ```
 
-2. Each  
+####2. Each  
 
-Similar to typical `for` loop iteration can be done via `each` in ruby on array and/or hash. The below example shows how the each iterator traverse through the items of the array. Each doesn't mutate the state of original array. If we need index of each item then we can also use `each_index`.
+Similar to typical `for` loop iteration can be done via `each` in ruby on array and/or hash. The below example shows how the each iterator traverse through the items of the array. If we need index of each item then we can also use `each_index`. Array #each executes block of code for each element and return the array itself. Note the returned original array value doesn't change ( doesn't mutate ).
 
 ```ruby
 data.each do |each_item|
@@ -57,11 +57,11 @@ puts @young_emp #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}
 puts ("*****")
 puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer"}
 ```
-So the initial array didn't change but we were able to extract the value based on our requirment ( i.e age must be greater than 25 )
+So the initial array didn't change but we were able to extract the value based on our requirement ( i.e age must be greater than 25 )
 
-3. Map
+####3. Map ( also called as #collect)
 
-Map is a abstraction of each, we can iterate through the item and can be mutate the property of the state. So in below example we can `upper case` the item of original array.
+Map is a abstraction of each, similar to array.each `map` iterates through the given block and returns the `new` array instead of the array itself. So it doesn't mutate the original array and returns the new one. So in below example we can `upper case` the item of original array.
 
 ```ruby
 data.map do |item|
@@ -102,4 +102,50 @@ data.map do |each_item|
   end
 end
 puts data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer", :category=>"Young"}
+```
+
+####4. Select
+
+If we are interested in pulling certain element if the condition satisfied then we can use `.select` instead. Select will iterative over all elements of array and returns the element which matches the criteria. Example: If we are interested in fetching array element which has age more than 25 then we can write as below,
+```ruby
+new_array = data.select do |each_item|
+  each_item[:age].to_i > 25
+end
+puts new_array #{:id=>101, :name=>"Matt", :age=>"28", :job=>"Engineer"}
+```
+4.1 Select between two Arrays
+
+Addition to our first array `data` we need to compare another array `compare_data` then we have to loop through both array item and find the data array element which matches with compare_data array and return the values. Example compare data is,
+```ruby
+compare_data = [{"age": "22"}]
+```
+Our data has only one element which has age of 22, so we just need to select that element so
+```ruby
+new_array = data.select do |each_item|
+  compare_data[0][:age].include?(each_item[:age])
+end
+puts new_array #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}
+```
+If we have list of string values for age, then the select can be performed as below,
+```ruby
+compare_data = ["21", "27", "22" ]
+
+new_array = data.select do |each_item|
+  compare_data.include?(each_item[:age])
+end
+puts new_array #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}
+```
+If we have list of hashes with age values then we need to perform 2 steps, (i) extract the name from the array and (ii). apply select on result to compare.
+Example Data to compare:   
+```ruby
+compare_data = [{"age": "21"},{"age": "29"},{"age": "22"} ]
+```
+Logic to perform Select
+```ruby
+result = compare_data.map { |item| item[:age] }
+puts result #21,29,22
+final_data = data.select do |each_item|
+  result.include?(each_item[:age])
+end
+puts final_data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}
 ```
