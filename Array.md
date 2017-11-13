@@ -2,7 +2,7 @@
 
 [Ruby doc](https://ruby-doc.org/core-2.4.1/Array.html#method-i-each) has covered pretty much about everything, however i am making an effort to explain the methods we can leverage to work with an array.
 
-> check if the object/variable is an array by `@some_var.is_a?(Object)` #true.
+> check if the object/variable is an array by doing `@some_var.is_a?(Object)`#true.
 
 #### 1. Example Data:
 
@@ -151,7 +151,8 @@ final_data = data.select do |each_item|
 end
 puts final_data #{:id=>100, :name=>"Rob", :age=>"22", :job=>"Tester"}
 ```
-4.2 Whats wrong ?
+4.2 Whats wrong ?   
+
 What happens if we use map inside a select ? instead of mapping the compare_data to list of numbers and then apply select?
 ```ruby
 final_data = data.select do |each_item|
