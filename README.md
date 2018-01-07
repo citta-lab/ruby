@@ -371,11 +371,71 @@ puts params[:user][:age] #23
 ```
 Evolution #5: ( Colon )
 As ruby version evolved, `:` usage has been modified as per the user need. So in short below are the few examples
-```ruby
+
 1. {:name => "foo"} same as {name: 'foo'}
 2. def foo(bar:) declaring parameter bar in a method
 3. foo(bar: 42) passing argument 42 for method call
+
+### 6. Modules
+
+Most of the ruby classes are modules however the use of modules are to have commonly used methods, functions and constant in one place and use them in different classes whenever required. Clean code can be achieved by this but the way we use the module differs from that of the usual ruby class.
+
+#### 6.1 Module Introduction
+If the module is part of separate file called "test_module.rb" then we need to add the file wherever we are planning on using. For example: "test_classA.rb" need to use. then
+```ruby
+require 'test_module.rb'
+#require filename
 ```
+Once added then we need to include the module inside the class,
+```ruby
+include MODULE_NAME
+```
+test_module.rb has following contents to define the module.
+```ruby
+# Module defined in test_module.rb file
+
+module Speed
+   MIN = 40
+   def Speed.Max(x)
+      x * MIN
+   end
+   def Speed.Min(x)
+     x
+   end
+end
+```
+To access Max function we can do `maxSpeed = Speed.Max(36)` and if we need to access MIN variable then we need to do `value = Speed::MIN`. We can also pass the variable value within the module function as `minSpeed = Speed.Min(Speed::MIN)` which will return 40. In below scenario we will break the code by adding the instance method Top.
+```ruby
+module Speed
+   MIN = 40
+   def Speed.Max(x)
+      x * MIN
+   end
+   def Speed.Min(x)
+     x
+   end
+   def Top
+     120
+   end
+end
+```
+If we try to access Top via `puts Speed.Top` which will result in an error `undefined method `Top' for Speed:Module. So we either need to declare the method as `Speed.Top` or using self keyword `self.Top`. Now we can access via `Speed.Top` or we can also pass `Speed.Max(Speed.Top)`.
+
+#### 2. Use Modules in class
+
+As we mentioned in #1 we need to include the module and use the module variable or method directly as mentioned below.
+```ruby
+class Car
+  include Speed
+  def checkMaxSpeed
+    Speed.Max(Speed.Top)
+  end
+end
+
+car = Car.new
+puts car.checkMaxSpeed
+```
+
 
 
 [Ruby Code Guide](https://github.com/bbatsov/ruby-style-guide#syntax)
@@ -697,4 +757,4 @@ Add `debugger` inside the controller or Module or Helper methods where the probl
 ### Reference:
 1. [LaunchSchool](https://launchschool.com/books/oo_ruby/read/classes_and_objects_part1)
 2. Ruby Fundamentals by Alex Korban
-3. Need to add
+3. [Learn Ruby the hard way](https://learnrubythehardway.org/book/)
